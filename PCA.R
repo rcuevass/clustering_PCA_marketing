@@ -27,10 +27,11 @@ library(matrixcalc)
 
 is.positive.definite(cor(df))
 is.positive.definite(cov(df))
-is.positive.semi.definite(cor(df))
-is.positive.semi.definite(cov(df))
+#is.positive.semi.definite(cor(df))
+#is.positive.semi.definite(cov(df))
 
-
+# The previous tests indicate that covariance and correlation matrices
+# are NOT positive definite.
 # Let's do exploratory analysis of eigenvalues and singular value 
 # decomposition on covariance and correlation matices
 # Covariance...
@@ -43,6 +44,16 @@ ev.cor<-eigen(cor(df))
 ev.cor$values
 svd.cor<-svd(cor(df))
 svd.cor$d
+
+# The previous analysese indicate that there are eigenvalues that
+# are smaller than the default tolerance, tol = 1e-8
+is.positive.definite(cov(df), tol=1e-8)
+is.positive.definite(cov(df), tol=1e-9)
+is.positive.definite(cov(df), tol=1e-10)
+
+is.positive.definite(cor(df), tol=1e-15)
+is.positive.definite(cor(df), tol=1e-16)
+is.positive.definite(cor(df), tol=1e-17)
 
 # to be continued...
 
